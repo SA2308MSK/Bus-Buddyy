@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BusBuddy Dashboard</title>
+  <style>
+    :root {
+      --primary: #007bff;
+      --background: #f8f9fa;
+      --text: #222;
+      --card: #ffffff;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --primary: #4da3ff;
+        --background: #121212;
+        --text: #f1f1f1;
+        --card: #1e1e1e;
+      }
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: var(--background);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: var(--primary);
+      color: white;
+      text-align: center;
+      padding: 14px;
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .container {
+      padding: 16px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      margin: 0 0 10px 0;
+      color: var(--primary);
+    }
+
+    button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    iframe {
+      width: 100%;
+      height: 250px;
+      border: none;
+      border-radius: 8px;
+    }
+
+    .logout {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .logout button {
+      background: crimson;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    BusBuddy Dashboard
+  </header>
+
+  <div class="container">
+    <div class="card">
+      <h2>🗺️ Live Bus Tracking</h2>
+      <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyD---demo&q=Bangalore" loading="lazy"></iframe>
+    </div>
+
+    <div class="card">
+      <h2>👥 Bus Crowd & Alerts</h2>
+      <p>Bus #45A — ~70% full</p>
+      <p>Bus #201R — Heavy traffic near Majestic</p>
+    </div>
+
+    <div class="card">
+      <h2>🎫 Ticket Generator</h2>
+      <button onclick="generateTicket()">Generate Ticket</button>
+      <p id="ticket"></p>
+    </div>
+
+    <div class="card">
+      <h2>🪪 Day Pass</h2>
+      <button onclick="generatePass()">Get Day Pass</button>
+      <p id="pass"></p>
+    </div>
+
+    <div class="logout">
+      <button onclick="logout()">Logout</button>
+    </div>
+  </div>
+
+  <script>
+    // Redirect if not logged in
+    if (localStorage.getItem('loggedIn') !== 'true') {
+      window.location.href = 'index.html';
+    }
+
+    function generateTicket() {
+      const ticketId = 'TKT-' + Math.floor(Math.random() * 100000);
+      document.getElementById('ticket').innerText = `Your ticket ID: ${ticketId}`;
+    }
+
+    function generatePass() {
+      const passId = 'PASS-' + Math.floor(Math.random() * 100000);
+      document.getElementById('pass').innerText = `Day Pass ID: ${passId}`;
+    }
+
+    function logout() {
+      localStorage.removeItem('loggedIn');
+      localStorage.removeItem('userEmail');
+      window.location.href = 'index.html';
+    }
+  </script>
+</body>
+</html>
